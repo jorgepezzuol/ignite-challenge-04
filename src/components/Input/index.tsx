@@ -1,16 +1,15 @@
-import {
-  useEffect,
-  useRef,
-  useState,
-  useCallback,
-} from 'react';
-
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { useField } from '@unform/core';
-
 import { Container } from './styles';
+import { IconType } from 'react-icons/lib';
 
-const Input = ({ name, icon: Icon, ...rest }) => {
-  const inputRef = useRef(null);
+interface InputProps {
+  name: string;
+  icon?: IconType;
+}
+
+const Input = ({ name, icon: Icon, ...rest }: InputProps & React.InputHTMLAttributes<HTMLInputElement>) => {
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
@@ -23,7 +22,6 @@ const Input = ({ name, icon: Icon, ...rest }) => {
 
   const handleInputBlur = useCallback(() => {
     setIsFocused(false);
-
     setIsFilled(!!inputRef.current?.value);
   }, []);
 
